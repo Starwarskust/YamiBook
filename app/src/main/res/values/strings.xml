@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">YamiBook</string>
     <string name="recipes">Рецепты</string>
+    <string name="recipe_creation">Создание рецепта</string>
 </resources>

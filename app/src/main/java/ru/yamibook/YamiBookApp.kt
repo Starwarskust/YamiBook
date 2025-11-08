@@ -1,6 +1,5 @@
 package ru.yamibook
 
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.List
@@ -16,12 +15,15 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import ru.yamibook.screens.RecipeCreationScreen
 import ru.yamibook.screens.RecipeListScreen
+import ru.yamibook.screens.RecipeScreen
 import ru.yamibook.ui.theme.YamiBookTheme
 
 sealed class MainTab(val route: String, val icon: ImageVector) {
@@ -60,8 +62,7 @@ fun YamiBookApp() {
                         }
                     }
                 }
-            },
-            modifier = Modifier.fillMaxSize()
+            }
         ) { innerPadding ->
             NavHost(
                 navController = navController,
@@ -70,7 +71,7 @@ fun YamiBookApp() {
             ) {
                 composable(MainTab.RecipeList.route) {
                     RecipeListScreen(
-                        onOpenRecipe = { /* do something */ },
+                        onOpenRecipe = { id -> navController.navigate("recipe/$id") },
                         onAdd = { navController.navigate("recipe/create") }
                     )
                 }
@@ -81,6 +82,16 @@ fun YamiBookApp() {
                             // сохранить и вернуться
                             navController.popBackStack()
                         }
+                    )
+                }
+                composable(
+                    route = "recipe/{id}",
+                    arguments = listOf(navArgument("id") { type = NavType.StringType })
+                ) { backStackEntry ->
+                    val id = backStackEntry.arguments?.getString("id")!!
+                    RecipeScreen(
+                        id = id,
+                        onBack = { navController.popBackStack() }
                     )
                 }
                 composable(MainTab.Tab2.route) { Text("tab2") }

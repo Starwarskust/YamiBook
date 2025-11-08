@@ -19,15 +19,18 @@ import ru.yamibook.ui.theme.SoftBlue
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RecipeScreen() {
+fun RecipeScreen(
+    id: String,
+    onBack: () -> Unit
+) {
     Scaffold(
         topBar = {
             TopAppBar(
                 navigationIcon = {
-                    IconButton(onClick = { /* do something */ }) {
+                    IconButton(onClick = onBack) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Localized description"
+                            contentDescription = null
                         )
                     }
                 },
@@ -36,7 +39,7 @@ fun RecipeScreen() {
                     IconButton(onClick = { /* do something */ }) {
                         Icon(
                             imageVector = Icons.Default.Edit,
-                            contentDescription = "Localized description"
+                            contentDescription = null
                         )
                     }
                 },
@@ -57,5 +60,8 @@ fun RecipeScreen() {
 @Preview
 @Composable
 fun RecipeScreenPreview() {
-    RecipeScreen()
+    RecipeScreen(
+        id = "0",
+        onBack = {}
+    )
 }

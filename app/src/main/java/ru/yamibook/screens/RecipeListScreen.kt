@@ -3,8 +3,8 @@ package ru.yamibook.screens
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.outlined.AddCircle
+import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -17,43 +17,41 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import ru.yamibook.R
-import ru.yamibook.ui.theme.SoftGreen
+import ru.yamibook.ui.theme.Pink
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RecipeCreationScreen(
-    onBack: () -> Unit,
-    onAccept: () -> Unit
+fun RecipeListScreen(
+    onOpenRecipe: () -> Unit,
+    onAdd: () -> Unit,
 ) {
     Scaffold(
         topBar = {
             TopAppBar(
-                navigationIcon = {
-                    IconButton(onClick = onBack) {
+                title = { Text(stringResource(R.string.recipes)) },
+                actions = {
+                    IconButton(onClick = { /* do something */ }) {
                         Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = null
+                            imageVector = Icons.Outlined.Search,
+                            contentDescription = "Localized description"
                         )
                     }
-                },
-                title = { Text(stringResource(R.string.recipe_creation)) },
-                actions = {
-                    IconButton(onClick = onAccept) {
+                    IconButton(onClick = onAdd) {
                         Icon(
-                            imageVector = Icons.Default.Check,
-                            contentDescription = null
+                            imageVector = Icons.Outlined.AddCircle,
+                            contentDescription = "Localized description"
                         )
                     }
                 },
                 colors = topAppBarColors(
-                    containerColor = SoftGreen
+                    containerColor = Pink
                 ),
             )
         },
         modifier = Modifier.fillMaxSize()
     ) { innerPadding ->
         Text(
-            text = "RecipeScreen",
+            text = "recipe_list",
             modifier = Modifier.padding(innerPadding)
         )
     }
@@ -61,9 +59,9 @@ fun RecipeCreationScreen(
 
 @Preview
 @Composable
-fun RecipeCreationScreenPreview() {
-    RecipeCreationScreen(
-        onBack = {},
-        onAccept = {}
+fun RecipeListScreenPreview() {
+    RecipeListScreen(
+        onOpenRecipe = {},
+        onAdd = {}
     )
 }
